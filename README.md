@@ -1,5 +1,5 @@
-# ioutil-java
-IO utility library for Java
+# northside-io-java
+File/Stream comparison utility library for Java
 
 ## Usage
 
@@ -10,6 +10,11 @@ There are 2 methods in this library.
 
 These are natural extension from Apache commons IO to add offset and length to be compared.
 If you want to compare an entire content of both file, you can use commons-io.
+An original methods in Commons-IO are:
+
+- FileUtils.contentEquals(File firstFile, File secondFile)
+- IOUtils.contentEquals(InputStream firstInput, InputStream seconInput)
+
 
 ## Build
 
@@ -19,10 +24,10 @@ IO utility library for java uses Gradle for build system.
 $ gradle build
 ```
 
-You will find archive files at
+You will find a jar file at
 
 ```
-build/distributions
+build/libs/northside-io.jar
 ```
 
 ## Contribution
