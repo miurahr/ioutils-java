@@ -37,46 +37,34 @@
 
 package tokyo.northside;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
-
-import org.apache.commons.io.IOUtils;
 
 
 /**
- * General IO stream manipulation utility.
+ * General File manipulation utility.
  * <p>
  * This class provides static utility methods for input/output operations.
  * <ul>
- * <li>contentEquals - these methods compare the content of two streams
+ * <li>contentEquals - these methods compare the content of two files
  * </ul>
  * <p>
- * All the methods in this class that read a stream are buffered internally.
- * This means that there is no cause to use a <code>BufferedInputStream</code>
- * or <code>BufferedReader</code>. The default buffer size of 4K has been shown
- * to be efficient in tests.
- * <p>
- * Wherever possible, the methods in this class do <em>not</em> flush or close
- * the stream. This is to avoid making non-portable assumptions about the
- * streams' origin and further use. Thus the caller is still responsible for
- * closing streams after use.
+ * The methods in this class that read a file are buffered internally.
+ * The default buffer size of 4K has been shown to be efficient in tests.
  * <p>
  * Created by Hiroshi Miura on 16/04/09.
+ *
+ * @author Hiroshi Miura
  */
 public final class FileUtils {
-
-    private static final int EOF = -1;
-    private static final int BUF_LEN = 4096;
 
     /**
      * Compare files. Both files must be files (not directories) and exist.
      *
-     * @param first  - first file
-     * @param second - second file
-     * @return boolean - true if files are binery equal
+     * @param first   first file
+     * @param second  second file
+     * @return boolean  true if files are equal
      * @throws IOException - error in function
      */
     static boolean contentEquals(final File first, final File second) throws IOException {
@@ -86,12 +74,12 @@ public final class FileUtils {
     /**
      * Compare binary files (for test). Both files must be files (not directories) and exist.
      *
-     * @param first  - first file
-     * @param second - second file
-     * @param off    - compare from offset
-     * @param len    - comparison length
-     * @return boolean - true if files are binery equal
-     * @throws IOException - error in function
+     * @param first   first file
+     * @param second  second file
+     * @param off     compare from offset
+     * @param len     comparison length
+     * @return boolean  true if files are equal, otherwise false
+     * @throws IOException  error in function
      */
     static boolean contentEquals(final File first, final File second, final long off, final long len)
             throws IOException {
@@ -111,77 +99,18 @@ public final class FileUtils {
             } else {
                 FileInputStream firstInput = null;
                 FileInputStream secondInput = null;
-                BufferedInputStream bufFirstInput = null;
-                BufferedInputStream bufSecondInput = null;
 
                 try {
                     firstInput = new FileInputStream(first);
                     secondInput = new FileInputStream(second);
-                    bufFirstInput = new BufferedInputStream(firstInput, BUF_LEN);
-                    bufSecondInput = new BufferedInputStream(secondInput, BUF_LEN);
-
-                    byte[] firstBytes = new byte[BUF_LEN];
-                    byte[] secondBytes = new byte[BUF_LEN];
-
-                    if (off > 0) {
-                        long totalSkipped = 0;
-                        while (totalSkipped < off) {
-                            long skipped = bufFirstInput.skip(off - totalSkipped);
-                            if (skipped == 0) {
-                                throw new IOException("Cannot seek offset bytes.");
-                            }
-                            totalSkipped += skipped;
-                        }
-                        totalSkipped = 0;
-                        while (totalSkipped < off) {
-                            long skipped = bufSecondInput.skip(off - totalSkipped);
-                            if (skipped == 0) {
-                                throw new IOException("Cannot seek offset bytes.");
-                            }
-                            totalSkipped += skipped;
-                        }
-                    }
-
-
-                    long readLengthTotal = 0;
-                    result = true;
-                    while (readLengthTotal < len) {
-                        int readLength = BUF_LEN;
-                        if (len - readLengthTotal < (long) BUF_LEN) {
-                            readLength = (int) (len - readLengthTotal);
-                        }
-                        int lenFirst = bufFirstInput.read(firstBytes, 0, readLength);
-                        int lenSecond = bufSecondInput.read(secondBytes, 0, readLength);
-                        if (lenFirst != lenSecond) {
-                            result = false;
-                            break;
-                        }
-                        if ((lenFirst < 0) && (lenSecond < 0)) {
-                            result = true;
-                            break;
-                        }
-                        readLengthTotal += lenFirst;
-                        if (lenFirst < firstBytes.length) {
-                            byte[] a = Arrays.copyOfRange(firstBytes, 0, lenFirst);
-                            byte[] b = Arrays.copyOfRange(secondBytes, 0, lenSecond);
-                            if (!Arrays.equals(a, b)) {
-                                result = false;
-                                break;
-                            }
-                        } else if (!Arrays.equals(firstBytes, secondBytes)) {
-                            result = false;
-                            break;
-                        }
-                    }
+                    result = IOUtils.contentEquals(firstInput, secondInput, off, len);
                 } catch (RuntimeException e) {
                     throw e;
                 } catch (IOException ioe) {
                      throw ioe;
                 } finally {
-                     IOUtils.closeQuietly(bufFirstInput);
-                     IOUtils.closeQuietly(firstInput);
-                     IOUtils.closeQuietly(bufSecondInput);
-                     IOUtils.closeQuietly(secondInput);
+                     org.apache.commons.io.IOUtils.closeQuietly(firstInput);
+                     org.apache.commons.io.IOUtils.closeQuietly(secondInput);
                 }
             }
         }
