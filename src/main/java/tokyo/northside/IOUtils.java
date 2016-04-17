@@ -69,17 +69,6 @@ public final class IOUtils {
     private static final int BUF_LEN = 4096;
 
     /**
-     * Proxy for Apache commons-io IOUtils.contentEquals method.
-     * @param first input stream
-     * @param second input stream
-     * @return true if content of both input stream are same, false otherwise.
-     * @throws IOException when I/O error occurred.
-     */
-    static boolean contentEquals(final InputStream first, final InputStream second) throws IOException {
-        return org.apache.commons.io.IOUtils.contentEquals(first, second);
-    }
-
-    /**
      * Compare the contents of two Streams to determine if they are equal or not.
      *
      * @param first  first input stream.

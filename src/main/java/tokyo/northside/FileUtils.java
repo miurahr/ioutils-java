@@ -60,19 +60,7 @@ import java.io.IOException;
 public final class FileUtils {
 
     /**
-     * Compare files. Both files must be files (not directories) and exist.
-     *
-     * @param first   first file
-     * @param second  second file
-     * @return boolean  true if files are equal
-     * @throws IOException - error in function
-     */
-    static boolean contentEquals(final File first, final File second) throws IOException {
-        return contentEquals(first, second, 0, first.length());
-   }
-
-    /**
-     * Compare binary files (for test). Both files must be files (not directories) and exist.
+     * Compare file contents in range. Both files must be files (not directories) and exist.
      *
      * @param first   first file
      * @param second  second file

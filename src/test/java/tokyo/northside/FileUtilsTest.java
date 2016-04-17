@@ -12,30 +12,6 @@ import java.io.File;
 public class FileUtilsTest {
 
     @Test (groups="file")
-    public void testContentEquals() throws Exception {
-        System.out.println("contentEquals");
-        File firstFile = new File(this.getClass().getResource("/test_util.txt").getFile());
-        File secondFile = new File(this.getClass().getResource("/test_util1.txt").getFile());
-        assertTrue(FileUtils.contentEquals(firstFile, secondFile));
-    }
-
-    @Test (groups="file")
-    public void testContentEquals_sameCanonicalPath() throws Exception {
-        System.out.println("contentEquals with same canonical path");
-        File firstFile = new File(this.getClass().getResource("/test_util.txt").getFile());
-        File secondFile = new File(this.getClass().getResource("/test_util.txt").getFile());
-        assertTrue(FileUtils.contentEquals(firstFile, secondFile));
-    }
-
-    @Test (groups="file")
-    public void testContentEquals_false() throws Exception {
-        System.out.println("contentEquals_false");
-        File firstFile = new File(this.getClass().getResource("/test_util.txt").getFile());
-        File secondFile = new File(this.getClass().getResource("/test_util2.txt").getFile());
-        assertFalse(FileUtils.contentEquals(firstFile, secondFile));
-    }
-
-    @Test (groups="file")
     public void testContentEquals_range() throws Exception {
         System.out.println("contentEquals_range");
         File firstFile = new File(this.getClass().getResource("/test_util.txt").getFile());
@@ -50,5 +26,4 @@ public class FileUtilsTest {
         File secondFile = new File(this.getClass().getResource("/test_util2.txt").getFile());
         assertFalse(FileUtils.contentEquals(firstFile, secondFile, 0, 64));
     }
-
 }

@@ -14,7 +14,7 @@ import java.io.InputStream;
 public class IOUtilsTest {
 
     @Test (groups="stream")
-    public void testContentEquals_stream() throws Exception {
+    public void testContentEquals() throws Exception {
         System.out.println("contentEquals");
         File firstFile =  new File(this.getClass().getResource("/test_util.txt").getFile());
         File secondFile = new File(this.getClass().getResource("/test_util1.txt").getFile());
@@ -24,7 +24,7 @@ public class IOUtilsTest {
     }
 
     @Test (groups="stream")
-    public void testContentEquals_sameStream() throws Exception {
+    public void testContentEquals_same() throws Exception {
         System.out.println("contentEquals");
         File firstFile =  new File(this.getClass().getResource("/test_util.txt").getFile());
         InputStream firstInput = new FileInputStream(firstFile);
@@ -32,7 +32,7 @@ public class IOUtilsTest {
     }
 
     @Test (groups="stream")
-    public void testContentEquals_streamFalse() throws Exception {
+    public void testContentEquals_false() throws Exception {
         System.out.println("contentEquals");
         File firstFile =  new File(this.getClass().getResource("/test_util.txt").getFile());
         File secondFile = new File(this.getClass().getResource("/test_util2.txt").getFile());
@@ -42,7 +42,7 @@ public class IOUtilsTest {
     }
 
     @Test (groups="stream")
-    public void testContentEquals_streamRange() throws Exception {
+    public void testContentEquals_range() throws Exception {
         System.out.println("contentEquals_range");
         File firstFile = new File(this.getClass().getResource("/test_util.txt").getFile());
         File secondFile = new File(this.getClass().getResource("/test_util2.txt").getFile());
