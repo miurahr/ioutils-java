@@ -59,7 +59,7 @@ public final class IOUtils {
      * @return boolean true if content of input streams are equal, true if streams are equal, otherwise false.
      * @throws IOException when I/O error occurred.
      */
-    static boolean contentEquals(final InputStream first, final InputStream second, final long off, final long len)
+    public static boolean contentEquals(final InputStream first, final InputStream second, final long off, final long len)
             throws IOException {
         boolean result;
 

@@ -50,7 +50,7 @@ public final class FileUtils {
      * @return boolean  true if files are equal, otherwise false
      * @throws IOException  error in function
      */
-    static boolean contentEquals(final File first, final File second, final long off, final long len)
+    public static boolean contentEquals(final File first, final File second, final long off, final long len)
             throws IOException {
         boolean result = false;
 
