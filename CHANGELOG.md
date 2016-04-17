@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 ### Fixed
-- Remove wrong license preamble section in source file.
+- Update license preamble section in source file.
 
 ## 0.1.0
 ### Add
