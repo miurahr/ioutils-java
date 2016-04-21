@@ -1,17 +1,45 @@
+plugins {
+    // github
+    id "co.riiid.gradle" version "0.4.2"
+    // bintray
+    id "com.jfrog.bintray" version "1.6"
+}
+
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 
-sourceCompatibility = '1.7'
-targetCompatibility = '1.7'
+project.group = 'tokyo.northside'
+
+sourceCompatibility = jdkVersion
+targetCompatibility = jdkVersion
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-[compileJava, compileTestJava]*.options*.bootClasspath = "$JDK7_HOME/jre/lib/rt.jar"
+[compileJava, compileTestJava]*.options*.bootClasspath = "$JDK_HOME/jre/lib/rt.jar"
 checkstyle {
-  config = resources.text.fromFile("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
-  ignoreFailures = true
-  toolVersion = '6.16.1'
+    config = resources.text.fromFile("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
+    ignoreFailures = true
+    toolVersion = '6.16.1'
 }
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'commons-io:commons-io:2.4'
+    testCompile 'org.testng:testng:6.9.10'
+}
+
+javadoc {
+    options.locale = 'en_US'
+}
+
+test {
+    useTestNG()
+}
+
 
 // Force prevent checkstyle/findbugs on Test.
 task checkstyleTest(overwrite: true) << {}
@@ -23,15 +51,24 @@ tasks.withType(FindBugs) {
   }
 }
 
-repositories {
-  mavenCentral()
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
 }
 
-dependencies {
-  compile 'commons-io:commons-io:2.4'
-  testCompile 'org.testng:testng:6.9.10'
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    description 'Generate jar file that have javadoc'
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
 
-test {
-  useTestNG()
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocJar
+}
+
+if (gradle.startParameter.taskNames.contains('uploadArchives') ||
+    gradle.startParameter.taskNames.contains('bintrayUpload')) {
+  apply from: 'build.publish.gradle'
 }

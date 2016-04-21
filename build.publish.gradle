@@ -1,0 +1,93 @@
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+boolean validProperty(propertyName) {
+  try { project.property(propertyName) != null }
+  catch (MissingPropertyException) { false }
+}
+assert validProperty('signing.keyId'),             'properties for signing must be provided'
+assert validProperty('signing.secretKeyRingFile'), 'properties for signing must be provided'
+assert validProperty('sonatypeUsername'),          'properties for publish must be provided'
+assert validProperty('sonatypeFullname'),          'properties for publish must be provided'
+
+String askPassword(prompt) {
+  "${System.console().readPassword(prompt)}"
+}
+ext.'signing.password' = askPassword("Enter password for PGP key ${property('signing.keyId')}: ")
+
+signing {
+  sign configurations.archives
+}
+
+bintray {
+	  user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+	  key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    publications = ['']
+    pkg {
+        repo = 'maven'
+        name = 'northside-io'
+        licenses = ['Apache-2.0']
+        vcsUrl = projectUrl
+        labels = ['java', 'library', 'io']
+        publicDownloadNumbers = true
+        version {
+            name = '0.1.2'
+            desc = 'northside IO library for java'
+            vcsTag = 'v0.1.2'
+        }
+    }
+}
+
+github {
+    owner = projectOwner
+    repo = 'northside-io-java'
+    token = githubToken
+    tagName = 'v0.1.2'
+    targetCommitish = 'master'
+    name = 'v0.1.2'
+    draft = true
+    body = """# northside-io
+Release automation
+"""
+    assets = [
+            'build/libs/northside-io.jar',
+            'build/libs/northside-io.jar.asc',
+            'build/libs/northside-io-javadoc.jar',
+            'build/libs/northside-io-javadoc.jar.asc',
+            'build/libs/northside-io-source.jar',
+            'build/libs/northside-io-source.jar.asc'
+    ]
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository url: "file://$System.env.HOME/.m2/repository"
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+        pom.project {
+            name project.name
+            packaging 'jar'
+            description 'northside io project'
+            url projectUrl
+            version '0.1.2'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            scm {
+                url githubUrl
+                connection "scm:git:${githubUrl}"
+                developerConnection "scm:git:${githubUrl}"
+            }
+            developers {
+                developer {
+                    id 'miurahr'
+                    name 'Hiroshi Miura'
+                    email 'miurahr@linux.com'
+                }
+            }
+        }
+    }
+}
