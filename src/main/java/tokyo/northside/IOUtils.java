@@ -56,11 +56,12 @@ public final class IOUtils {
      * @param second  second input stream.
      * @param off     compare from offset
      * @param len     comparison length
-     * @return boolean true if content of input streams are equal, true if streams are equal, otherwise false.
+     * @return boolean true if content of input streams are equal, true if streams are equal,
+     *     otherwise false.
      * @throws IOException when I/O error occurred.
      */
-    public static boolean contentEquals(final InputStream first, final InputStream second, final long off, final long len)
-            throws IOException {
+    public static boolean contentEquals(final InputStream first, final InputStream second,
+            final long off, final long len) throws IOException {
         boolean result;
 
         if (len < 1) {
