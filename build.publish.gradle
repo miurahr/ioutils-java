@@ -32,7 +32,7 @@ bintray {
         publicDownloadNumbers = true
         version {
             name = projectVersion
-            desc = 'northside IO library for java'
+            desc = projectDesc
             vcsTag = projectTag
         }
     }
@@ -66,7 +66,7 @@ uploadArchives {
         pom.project {
             name project.name
             packaging 'jar'
-            description 'northside io project'
+            description projectDesc
             url projectUrl
             version projectVersion
             licenses {
