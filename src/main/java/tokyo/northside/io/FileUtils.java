@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package tokyo.northside;
+package tokyo.northside.io;
 
 import java.io.File;
 import java.io.FileInputStream;
