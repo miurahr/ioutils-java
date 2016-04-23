@@ -1,4 +1,4 @@
-package tokyo.northside;
+package tokyo.northside.io;
 
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
