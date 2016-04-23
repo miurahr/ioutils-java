@@ -3,4 +3,3 @@ dist
 /.gradle
 /.idea
 /.jacocoverage
-gradle.properties
