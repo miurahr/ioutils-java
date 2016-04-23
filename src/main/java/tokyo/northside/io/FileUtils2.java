@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+
 
 /**
  * General File manipulation utility.
@@ -38,7 +40,7 @@ import java.io.IOException;
  *
  * @author Hiroshi Miura
  */
-public final class FileUtils {
+public final class FileUtils2 extends FileUtils {
 
     /**
      * Compare file contents in range. Both files must be files (not directories) and exist.
@@ -72,7 +74,7 @@ public final class FileUtils {
                 try {
                     firstInput = new FileInputStream(first);
                     secondInput = new FileInputStream(second);
-                    result = IOUtils.contentEquals(firstInput, secondInput, off, len);
+                    result = IOUtils2.contentEquals(firstInput, secondInput, off, len);
                 } catch (RuntimeException e) {
                     throw e;
                 } catch (IOException ioe) {
@@ -86,9 +88,4 @@ public final class FileUtils {
         return result;
     }
 
-    /**
-     * Static utility should not be instantiated.
-     */
-    private FileUtils() {
-    }
 }

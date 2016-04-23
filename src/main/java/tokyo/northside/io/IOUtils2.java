@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
+import org.apache.commons.io.IOUtils;
 
 /**
  * General IO stream manipulation utility.
@@ -45,9 +46,9 @@ import java.util.Arrays;
  *
  * @author Hiroshi Miura
  */
-public final class IOUtils {
+public final class IOUtils2 extends IOUtils {
 
-    private static final int BUF_LEN = 4096;
+   private static final int BUF_LEN = 4096;
 
     /**
      * Compare the contents of two Streams to determine if they are equal or not.
@@ -138,6 +139,6 @@ public final class IOUtils {
     /**
      * Static utility should not be instantiated.
      */
-    private IOUtils() {
+    private IOUtils2() {
     }
 }

@@ -3,17 +3,25 @@ File/Stream comparison utility library for Java
 
 ## Usage
 
-There are 2 methods in this library.
+There are 2 original methods in this library.
 
-- FileUtils.contentEquals(File firstFile, File secondFile, long offset, long length)
-- IOUtils.contentEquals(InputSteam firstInput, InputStream secondInput, long offset, long length)
+- tokyo.northside.io.FileUtils2.contentEquals(File firstFile, File secondFile, long offset, long length)
+- tokyo.northside.io.IOUtils2.contentEquals(InputSteam firstInput, InputStream secondInput, long offset, long length)
 
 These are natural extension from Apache commons IO to add offset and length to be compared.
 If you want to compare an entire content of both file, you can use commons-io.
 An original methods in Commons-IO are:
 
-- FileUtils.contentEquals(File firstFile, File secondFile)
-- IOUtils.contentEquals(InputStream firstInput, InputStream seconInput)
+- org.apache.commons.io.FileUtils.contentEquals(File firstFile, File secondFile)
+- org.apache.commons.io.IOUtils.contentEquals(InputStream firstInput, InputStream secondInput)
+
+Because FileUtils2 and IOUtils2 are extended from commons-io classes,
+you can use this library by simple import and use it instead of original one.
+
+```
+import tokyo.northside.io.FileUtils2;
+import tokyo.northside.io.IOUtils2;
+```
 
 
 ## Build
@@ -28,6 +36,29 @@ You will find a jar file at
 
 ```
 build/libs/northside-io.jar
+```
+
+## Publish
+### localMaven
+To publish to local maven repository,
+
+```
+$ gradle uploadArchive
+```
+
+### bintray
+
+```
+$ gradle uploadBintray
+```
+
+A configuration should be in ~/.gradle/gradle.properties
+and you can see sample in gradle.properties.template
+
+### github
+
+```
+$ gradle githubRelease
 ```
 
 ## Contribution

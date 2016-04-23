@@ -31,9 +31,9 @@ bintray {
         labels = ['java', 'library', 'io']
         publicDownloadNumbers = true
         version {
-            name = '0.1.2'
+            name = projectVersion
             desc = 'northside IO library for java'
-            vcsTag = 'v0.1.2'
+            vcsTag = projectTag
         }
     }
 }
@@ -42,12 +42,12 @@ github {
     owner = projectOwner
     repo = 'northside-io-java'
     token = githubToken
-    tagName = 'v0.1.2'
+    tagName = projectTag
     targetCommitish = 'master'
-    name = 'v0.1.2'
+    name = projectTag
     draft = true
     body = """# northside-io
-Release automation
+New API.
 """
     assets = [
             'build/libs/northside-io.jar',
@@ -68,7 +68,7 @@ uploadArchives {
             packaging 'jar'
             description 'northside io project'
             url projectUrl
-            version '0.1.2'
+            version projectVersion
             licenses {
                 license {
                     name 'The Apache Software License, Version 2.0'

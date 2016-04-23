@@ -11,7 +11,7 @@ import java.io.InputStream;
 /**
  * Created by miurahr on 16/04/17.
  */
-public class IOUtilsTest {
+public class IOUtils2Test {
 
     @Test (groups="stream")
     public void testContentEquals() throws Exception {
@@ -20,7 +20,7 @@ public class IOUtilsTest {
         File secondFile = new File(this.getClass().getResource("/test_util1.txt").getFile());
         InputStream firstInput = new FileInputStream(firstFile);
         InputStream secondInput = new FileInputStream(secondFile);
-        assertTrue(IOUtils.contentEquals(firstInput, secondInput, 0, firstFile.length()));
+        assertTrue(IOUtils2.contentEquals(firstInput, secondInput, 0, firstFile.length()));
     }
 
     @Test (groups="stream")
@@ -28,7 +28,7 @@ public class IOUtilsTest {
         System.out.println("contentEquals");
         File firstFile =  new File(this.getClass().getResource("/test_util.txt").getFile());
         InputStream firstInput = new FileInputStream(firstFile);
-        assertFalse(IOUtils.contentEquals(firstInput, firstInput, 0, firstFile.length()));
+        assertFalse(IOUtils2.contentEquals(firstInput, firstInput, 0, firstFile.length()));
     }
 
     @Test (groups="stream")
@@ -38,7 +38,7 @@ public class IOUtilsTest {
         File secondFile = new File(this.getClass().getResource("/test_util2.txt").getFile());
         InputStream firstInput = new FileInputStream(firstFile);
         InputStream secondInput = new FileInputStream(secondFile);
-        assertFalse(IOUtils.contentEquals(firstInput, secondInput, 0, firstFile.length()));
+        assertFalse(IOUtils2.contentEquals(firstInput, secondInput, 0, firstFile.length()));
     }
 
     @Test (groups="stream")
@@ -48,7 +48,7 @@ public class IOUtilsTest {
         File secondFile = new File(this.getClass().getResource("/test_util2.txt").getFile());
         InputStream firstInput = new FileInputStream(firstFile);
         InputStream secondInput = new FileInputStream(secondFile);
-        assertTrue(IOUtils.contentEquals(firstInput, secondInput, 10, 64));
+        assertTrue(IOUtils2.contentEquals(firstInput, secondInput, 10, 64));
     }
 
 }
