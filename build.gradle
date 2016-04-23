@@ -10,7 +10,7 @@ apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 
-project.group = 'tokyo.northside'
+project.group = projectGroup
 
 sourceCompatibility = jdkVersion
 targetCompatibility = jdkVersion

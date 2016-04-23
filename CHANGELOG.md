@@ -2,11 +2,16 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+## [0.2.0]
 ### Add
+- Gradle publish script: github release, bintray upload and maven.
 
 ### Changed
+- API change: Package is now 'tokyo.northside.io'
+- Project configuration is placed on gradle.properties
+- Private configuration is required in ~/.gradle/gradle.properties
+  for github account, bintray account etc.
 
-### Fixed
 
 ## [0.1.1]
 ### Changed
