@@ -20,8 +20,8 @@ signing {
 }
 
 bintray {
-	  user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-	  key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
     publications = ['']
     pkg {
         repo = 'maven'
@@ -46,9 +46,7 @@ github {
     targetCommitish = 'master'
     name = projectTag
     draft = true
-    body = """# northside-io
-New API.
-"""
+    body = projectReleaseBody
     assets = [
             'build/libs/northside-io.jar',
             'build/libs/northside-io.jar.asc',

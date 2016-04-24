@@ -69,6 +69,7 @@ artifacts {
 }
 
 if (gradle.startParameter.taskNames.contains('uploadArchives') ||
-    gradle.startParameter.taskNames.contains('bintrayUpload')) {
+    gradle.startParameter.taskNames.contains('bintrayUpload')  ||
+    gradle.startParameter.taskNames.contains('githubRelease')) {
   apply from: 'build.publish.gradle'
 }
