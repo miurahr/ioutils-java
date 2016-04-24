@@ -31,5 +31,6 @@ New API.
 ### Add
 - Start project to provide two convenient methods.
 
-[0.1.1]: https://github.com/miurahr/northside-io-java/compare/v0.1.0..v0.1.1
-[Unreleased]: https://github.com/miurahr/northside-io-java/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/miurahr/northside-io-java/compare/v0.1.0...v0.1.1
+[0.2.0]: https://github.com/miurahr/northside-io-java/compare/v0.1.1...v0.2.0
+[Unreleased]: https://github.com/miurahr/northside-io-java/compare/v0.2.0...HEAD
