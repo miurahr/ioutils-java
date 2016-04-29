@@ -10,7 +10,8 @@ apply plugin: 'jacoco'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 
-project.group = projectGroup
+group = projectGroup
+version = projectVersion
 
 sourceCompatibility = jdkVersion
 targetCompatibility = jdkVersion
