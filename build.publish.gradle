@@ -1,4 +1,5 @@
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 boolean validProperty(propertyName) {
@@ -19,28 +20,78 @@ signing {
   sign configurations.archives
 }
 
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name project.name
+            packaging 'jar'
+            description projectDesc
+            url projectUrl
+            version projectVersion
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+            scm {
+                url githubUrl
+                connection "scm:git:${githubUrl}"
+                developerConnection "scm:git:${githubUrl}"
+            }
+            developers {
+                developer {
+                    id 'miurahr'
+                    name 'Hiroshi Miura'
+                    email 'miurahr@linux.com'
+                }
+            }
+        }
+    }
+}
+
 bintray {
     user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
     key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
+
+    dryRun = true
+
     configurations = ['archives']
     pkg {
         repo = 'maven'
         name = 'northside-io'
+        // userOrg = ''
+        desc = projectDesc
+        websiteUrl = projectUrl
+        issueTrackerUrl = projectUrl + '/issues'
         licenses = ['Apache-2.0']
         vcsUrl = projectUrl
         labels = ['java', 'library', 'io']
         publicDownloadNumbers = true
+        githubRepo = githubUser + '/' + githubRepository
         version {
             name = projectVersion
             desc = projectDesc
             vcsTag = projectTag
+            gpg {
+                sign = true
+            }
+            mavenCentralSync {
+                sync = true
+                user = sonatypeKey
+                password = sonatypeToken
+                close = '0' // Optional property. By default the staging repository is closed and
+                            // artifacts are released to Maven Central. You can optionally turn this
+                            // behaviour off (by puting 0 as value) and release the version manually.
+            }
         }
     }
 }
 
 github {
     owner = projectOwner
-    repo = 'northside-io-java'
+    repo = githubRepository
     token = githubToken
     tagName = projectTag
     targetCommitish = 'master'
@@ -57,6 +108,7 @@ github {
     ]
 }
 
+// Upload to local repository
 uploadArchives {
     repositories.mavenDeployer {
         repository url: "file://$System.env.HOME/.m2/repository"
