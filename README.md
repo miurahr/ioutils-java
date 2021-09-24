@@ -46,21 +46,6 @@ To publish to local maven repository,
 $ gradle uploadArchive
 ```
 
-### bintray
-
-```
-$ gradle uploadBintray
-```
-
-A configuration should be in ~/.gradle/gradle.properties
-and you can see sample in gradle.properties.template
-
-### github
-
-```
-$ gradle githubRelease
-```
-
 ## Contribution
 
 As usual of other projects hosted on GitHub, this project also welcome
